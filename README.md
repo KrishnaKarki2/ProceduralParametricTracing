@@ -1,26 +1,49 @@
 # ProceduralParametricTracing
 This repository is inspired by kevinjycui's DesmosBezierRenderer: https://github.com/kevinjycui/DesmosBezierRenderer/tree/master 
 
-In the kevinjycui's repo, Windows users required Windows Subsystem for Linux (WSL) in order to render their scenes. This IPYNB allows users to easily upload the notebook into Google's Colab to run the scenes over cloud. 
+In the kevinjycui's repo, Windows users required Windows Subsystem for Linux (WSL) in order to render their scenes. This IPYNB allows users to easily upload the notebook into Google's Colab to run their scenes over cloud. In Cell 6, their scenes can be rendered out as mp4s. 
 
 Additionally, in Cell 5, each frame will procedurally be drawn out in real-time rather than being instantaneously rendered out. 
 
 https://github.com/user-attachments/assets/5014ec9b-4f58-4106-a6fc-6f7e0ef811ca
 
-# Cell 1: install dependencies
+
+# Tutorial  
+### Step 1: Create a folder called "frames" in Google Drive.
+
+<img width="713" height="383" alt="google_drive png" src="https://github.com/user-attachments/assets/014bf04d-bfdf-4788-9917-3e1ac861b859" />
+
+afterwards, upload each frame as a png (edit file_ext in cell 3 to upload jpgs instead of pngs) 
+
+## Cell 1: install dependencies
 ```sh
 !apt-get install -y libagg-dev libpotrace-dev pkg-config build-essential > /dev/null 2>&1
 !pip install flask flask-cors pillow numpy opencv-python pypotrace pyngrok -q
 print('Done installing.')`
 ```
-# Cell 2: mount google drive
+## Cell 2: mount google drive
 ```sh
 from google.colab import drive
 drive.mount('/content/drive')
 print('Drive mounted at /content/drive')
 ```
-# Cell 3: configure paths and quality settings
+## Cell 3: configure paths and quality settings
 ```sh
+import os
+
+# edit to your needs
+FRAME_DIR = '/content/drive/MyDrive/frames'  # folder with your frames
+FILE_EXT  = 'png' # you can switch this out for jpg
+COLOUR    = '#000000'
+
+# --- quality settings ---
+ADAPTIVE_CANNY   = True   # True = auto threshold per frame (better quality, slower renders)
+BILATERAL_FILTER = False  # True = smoother edges, fewer lines (lower quality, faster renders)
+OPTTOLERANCE     = 0.2    # curve fit tightness: lower = more accurate (try 0.2-0.5)
+TURDSIZE         = 8      # less speckle removal
+ALPHAMAX         = 1.0    # corner smoothness: 0 = sharp, 1.3 + = very round
+USE_L2_GRADIENT  = False  # True = fewer edges, (better quality, faster renders)
+SHOW_GRID        = True
 
 # sort frames in order
 import re
@@ -38,7 +61,7 @@ print(f'Found {len(frames)} frames in {FRAME_DIR}')
 print('First few:', frames[:5])
 print('Last few:', frames[-5:])
 ```
-# Cell 4: process frames → bezier latex expressions
+## Cell 4: process frames → bezier latex expressions
 ```sh
 import cv2, numpy as np, potrace, os
 from multiprocessing import Pool, cpu_count
@@ -226,7 +249,7 @@ for i, (exprs, pts, h, w) in enumerate(results):
 print(f'\n\nDone in {time()-start:.1f}s')
 print(f'Total expressions: {sum(len(f) for f in frame_latex)}')
 ```
-# Cell 5: draws each frame sequentially
+## Cell 5: draws each frame sequentially
 ```sh
 import json, threading
 from flask import Flask, request, jsonify
@@ -387,7 +410,7 @@ t.start()
 print('Open this link:')
 print(eval_js("google.colab.kernel.proxyPort(5000)"))\n```python\n# Cell 5: draws each frame sequentially
 ```
-# Cell 6: renders mp4
+## Cell 6: renders mp4
 ```sh
 import cv2
 import numpy as np
