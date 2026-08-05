@@ -1,7 +1,5 @@
 # ProceduralParametricTracing
 Procedural Parametric Tracing in Desmos 
 
-
-
-https://github.com/user-attachments/assets/a515f7c2-83f4-4480-99b3-3906238b1a43
+https://github.com/user-attachments/assets/97141cf7-7275-420c-9c72-857a58d0dd9a
 
