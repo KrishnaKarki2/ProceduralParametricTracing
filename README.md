@@ -17,7 +17,7 @@ Afterwards, upload each frame ['frame1.png,' 'frame2.png', ...]
 
 You can use the framizer attached in this repo to convert your mp4 to pngs, or use the sample frames provided in the repo
 
-### Step 2: Download the IPYNB from this repo and upload to Google Colab
+### Step 2: Download the PPT IPYNB from this repo and upload it to Google Colab
 <img width="717" height="335" alt="upload_ipynb png" src="https://github.com/user-attachments/assets/7a6a84f6-4059-4cff-b48e-df3627e5fb11" />
 
 ### Step 3: Run all cells in order 
