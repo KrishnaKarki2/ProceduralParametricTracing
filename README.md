@@ -1,5 +1,9 @@
 # ProceduralParametricTracing
-Procedural Parametric Tracing in Desmos 
+This repository is inspired by kevinjycui's DesmosBezierRenderer: https://github.com/kevinjycui/DesmosBezierRenderer/tree/master 
+
+In the kevinjycui's repo, Windows users required Windows Subsystem for Linux (WSL) in order to render their scenes. This IPYNB allows users to easily upload the notebook into Google's Colab to run the scenes over cloud. 
+
+Additionally, in Cell 5, each frame will procedurally be drawn out in real-time rather than being instantaneously rendered out. 
 
 https://github.com/user-attachments/assets/5014ec9b-4f58-4106-a6fc-6f7e0ef811ca
 
@@ -34,8 +38,8 @@ print(f'Found {len(frames)} frames in {FRAME_DIR}')
 print('First few:', frames[:5])
 print('Last few:', frames[-5:])
 ```
+# Cell 4: process frames → bezier latex expressions
 ```sh
-Cell 4: process frames → bezier latex expressions
 import cv2, numpy as np, potrace, os
 from multiprocessing import Pool, cpu_count
 from time import time
